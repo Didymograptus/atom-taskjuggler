@@ -1,8 +1,10 @@
 'scopeName': 'source.taskjuggler'
-'name': 'TASKJUGGLER'
+'name': 'Taskjuggler'
 'fileTypes': [
-  'tjp'
-  'TJP'
+  'tjp',
+  'TJP',
+  'tji',
+  'TJI'
 ]
 #'foldingStartMarker': '^\\s*([-%#\\:\\.\\w\\=].*)\\s{'
 #'foldingStopMarker': '^\\s*}'
