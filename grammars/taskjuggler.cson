@@ -6,113 +6,75 @@
   'tji',
   'TJI'
 ]
-#'foldingStartMarker': '^\\s*([-%#\\:\\.\\w\\=].*)\\s{'
-#'foldingStopMarker': '^\\s*}'
+'foldingStartMarker': '^\\s*([-%#\\:\\.\\w\\=].*)\\s{'
+'foldingStopMarker': '^\\s*}'
+
 'patterns': [
-  # Macros
+
+# Project keywords
   {
-  'begin': '(macro)\\s*(\\w+)\\s*\\['
-  'captures':
-    '0': 'name': 'comment.taskjuggler'
-    '1': 'name': 'keyword.taskjuggler'
-    '2': 'name': 'variable.taskjuggler'
-  'end': '\\]'
-  'name': 'comment.block'
+    'match': '\\b(account|aggregate|copyright|alertlevels|author|balance|chargeset|currency|currencyformat|dailymax|dailymin|dailyworkinghours|flags|loadunit|numberformat|project|rate|scenario|shift|timeformat|timezone|timingresolution|vacation|workinghours)\\b'
+    'name': 'keyword.project.taskjuggler'
+  }
+# task keywords
+  {
+    'match': '\\b(task)\\b'
+    'name' : 'taskmain.taskjuggler'
   }
 
-  {
-    'match': '(\\${\\w+})'
-    'name': 'constant.taskjuggler'
-  }
-
-  # Project keywords
-  {
-    'match': '\\b(project|copyright|managers|purge)\\b'
-    'name': 'keyword.taskjuggler'
-  }
 
   {
-    'match': '\\b(vacation)\\s+(".+")\\s+(.+)'
-    'name': 'variable.taskjuggler'
-    'captures': {
-      '1': {'name': 'keyword.taskjuggler'}
-      '2': {'name': 'constant.taskjuggler'}
-      '3': {'name': 'variable.taskjuggler'}
-    }
-  }
-  # tasks headers
-  {
-    'match': '\\b(task|resource|shift)\\s+(\\w+)\\s+(".+")'
-    'captures': {
-      '1': {'name': 'keyword.taskjuggler'}
-      '2': {'name': 'variable.taskjuggler'}
-      '3': {'name': 'comment.taskjuggler'}
-    }
+    'match': '\\b(priority|start|end|note|length|duration|gapduration|gaplength|shift|shifts|workinghours|effort|complete|depends|allocate|milestone|charge|chargeset|limits|precedes|shifts)\\b'
+    'name': 'taskdetail.taskjuggler'
   }
 
-  {
-    'match': '\\b(task|priority|start|length|duration|gapduration|gaplength|shift|shifts|workinghours|effort|complete|depends|allocate|milestone)\\b'
-    'name': 'keyword.taskjuggler'
-  }
+# journal keywords
 
   {
-    'match': '\\b(journalentry|author|alert|summary|details)\\b'
-    'name': 'keyword.taskjuggler'
-  }
-  # Reporting headers
-  {
-    'match': '\\b(header|footer|navigator|columns|timeformat|loadunit)\\b'
-    'name': 'keyword.taskjuggler'
+    'match': '\\b(journalentry|author|alert|summary|details|flags)\\b'
+    'name': 'keyword.journal.taskjuggler'
   }
 
-  {
-    'match': '\\bnavigator\\s+(\\w+)'
-    'name': 'variable.taskjuggler'
-    'captures': {
-      '1': {'name': 'constant.taskjuggler'}
-    }
-  }
+# macro keywords
 
   {
-    'match': '\\b(headline)\\s*("(.*)")'
-    'name': 'variable.taskjuggler'
-    'captures': {
-      '1': {'name': 'keyword.taskjuggler'}
-      '2': {'name': 'comment.taskjuggler'}
-    }
+    'match': '\\b(macro)\\b'
+    'name': 'keyword.mac.taskjuggler'
   }
 
+
+# report keywords
   {
-    'match': '\\b(textreport|taskreport|resourcereport)\\s+(\\w*)\\s*("(.*)")'
-    'name': 'variable.taskjuggler'
-    'captures': {
-      '1': {'name': 'keyword.taskjuggler'}
-      '2': {'name': 'constant.taskjuggler'}
-      '3': {'name': 'comment.taskjuggler'}
-    }
+    'match': '\\b(textreport|taskreport|resourcereport|hidereport|navigator|footer|header|formats|center|columns|hideresource|journalattributes|sorttasks|hidetasks|cellcolor|scenarios|headline|journalmode|period)\\b'
+    'name': 'keyword.report.taskjuggler'
   }
 
-  # -8<- UTF-8 comment ->8-
+# -8<- UTF-8 note ->8-
   {
     'begin': '-8<-'
     'captures':
       '0':
-        'name': 'comment.taskjuggler'
+        'name': 'note.taskjuggler'
     'end': '->8-'
-    'name': 'comment.taskjuggler'
+    'name': 'note.taskjuggler'
   }
 
 # Notes
-{
+  {
   'begin': '(note)\\s*"'
   'captures':
-    '0': 'name': 'comment'
-    '1': 'name': 'keyword.taskjuggler'
+    '0': 'name': 'note.taskjuggler'
+    '1': 'name': 'note.taskjuggler'
   'end': '"'
-  'name': 'comment.block'
-}
+  'name': 'note.block.taskjuggler'
+  }
+# Numbers
+  {
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.taskjuggler'
+  }
 
-  # Comments
+# Comments
   {
     'begin': '/\\*'
     'captures':
@@ -122,21 +84,19 @@
     'name': 'comment.block'
   }
   {
-        'begin': '(^[ \\t]+)?(?=#)'
-        'beginCaptures':
-          '1':
-            'name': 'comment.block'
-        'end': '(?!\\G)'
-        'patterns': [
-          {
-            'begin': '#'
-            'beginCaptures':
-              '0':
-                'name': 'comment.block'
-            'end': '\\n'
-            'name': 'comment.block'
-          }
-        ]
-      }
+    'begin': '#'
+    'Captures':
+      '0':
+        'name': 'comment'
+    'end': '\\n'
+    'name': 'comment'
+  }
+
+# double-quote strings
+
+  {
+    'match': '\"[^\"]*\"'
+    'name' : 'string.quoted.double.taskjuggler'
+  }
 
 ]

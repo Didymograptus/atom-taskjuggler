@@ -1,0 +1,155 @@
+'scopeName': 'source.taskjuggler'
+'name': 'Taskjuggler'
+'fileTypes': [
+  'tjp',
+  'TJP',
+  'tji',
+  'TJI'
+]
+#'foldingStartMarker': '^\\s*([-%#\\:\\.\\w\\=].*)\\s{'
+#'foldingStopMarker': '^\\s*}'
+'patterns': [
+  # Macros
+  {
+  'begin': '(macro)\\s*(\\w+)\\s*\\['
+  'captures':
+    '0': 'name': 'comment.taskjuggler'
+    '1': 'name': 'keyword.taskjuggler'
+    '2': 'name': 'variable.taskjuggler'
+  'end': '\\]'
+  'name': 'comment.block'
+}
+
+  {
+    'match': '(\\${\\w+})'
+    'name': 'constant.taskjuggler'
+  }
+
+  # Project keywords
+  {
+    'match': '\\b(project|copyright|managers|purge)\\b'
+    'name': 'keyword.taskjuggler'
+  }
+
+  {
+    'match': '\\b(vacation)\\s+(".+")\\s+(.+)'
+    'name': 'variable.taskjuggler'
+    'captures': {
+      '1': {'name': 'keyword.taskjuggler'}
+      '2': {'name': 'constant.taskjuggler'}
+      '3': {'name': 'variable.taskjuggler'}
+    }
+  }
+  # tasks headers
+#  {
+#    'match': '\\b(task|resource|shift)\\s+(\\w+)\\s+(".+")'
+#    'captures': {
+#      '1': {'name': 'keyword.taskjuggler'}
+#      '2': {'name': 'variable.taskjuggler'}
+#      '3': {'name': 'comment.taskjuggler'}
+#    }
+#  }
+
+  {
+    'match': '\\b(task|priority|start|end|note|flags|length|duration|gapduration|gaplength|shift|shifts|workinghours|effort|complete|depends|allocate|milestone)\\b'
+    'name': 'keyword.taskjuggler'
+  }
+
+  {
+    'match': '\\b(journalentry|author|alert|summary|details)\\b'
+    'name': 'keyword.taskjuggler'
+  }
+  # Reporting headers
+#  {
+#    'match': '\\b(header|footer|navigator|columns|timeformat|loadunit)\\b'
+#    'name': 'keyword.taskjuggler'
+#  }
+
+#  {
+#    'match': '\\bnavigator\\s+(\\w+)'
+#    'name': 'variable.taskjuggler'
+#    'captures': {
+#      '1': {'name': 'constant.taskjuggler'}
+#    }
+#  }
+
+#  {
+#    'match': '\\b(headline)\\s*("(.*)")'
+#    'name': 'variable.taskjuggler'
+#    'captures': {
+#      '1': {'name': 'keyword.taskjuggler'}
+#      '2': {'name': 'comment.taskjuggler'}
+#    }
+#  }
+
+  {
+    'match': '\\b(textreport|taskreport|resourcereport)\\s+(\\w*)\\s*("(.*)")'
+    'name': 'variable.taskjuggler'
+    'captures': {
+      '1': {'name': 'keyword.taskjuggler'}
+      '2': {'name': 'constant.taskjuggler'}
+      '3': {'name': 'comment.taskjuggler'}
+    }
+  }
+
+  # -8<- UTF-8 comment ->8-
+  {
+    'begin': '-8<-'
+    'captures':
+      '0':
+        'name': 'note'
+    'end': '->8-'
+    'name': 'note.taskjuggler'
+  }
+
+# Notes
+{
+  'begin': '(note)\\s*"'
+  'captures':
+    '0': 'name': 'note.taskjuggler'
+    '1': 'name': 'note.taskjuggler'
+  'end': '"'
+  'name': 'note.block.taskjuggler'
+}
+# Numbers
+{
+    'match': '\\b(([0-9]+\\.?[0-9]*)|(\\.[0-9]+))\\b'
+    'name': 'constant.numeric.taskjuggler'
+}
+# Dates
+{
+  'match': '([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))'
+  'captures':
+    '0': 'name': 'datef'
+    '1': 'name': 'datef.taskjuggler'
+  'name': 'datef'
+}
+
+  # Comments
+  {
+    'begin': '/\\*'
+    'captures':
+      '0':
+        'name': 'comment'
+    'end': '\\*/'
+    'name': 'comment.block'
+  }
+  {
+        'begin': '(^[ \\t]+)?(?=#)'
+        'beginCaptures':
+          '1':
+            'name': 'comment.block'
+        'end': '(?!\\G)'
+        'patterns': [
+          {
+            'begin': '#'
+            'beginCaptures':
+              '0':
+                'name': 'comment.block'
+            'end': '\\n'
+            'name': 'comment.block'
+          }
+        ]
+      }
+
+]
